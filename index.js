@@ -22,9 +22,11 @@ Client.on("ready", () => {
 //testping
 Client.on("messageCreate", message => {
     if (message.author.bot) return;
+    var burgers = 2;
 
-    if (message.content === prefix + "miam"){
-        message.channel.send("Serin a mangé 2 burgers 🍔");
+    if (message.content.startsWith(prefix + "miam")){
+        var burgers = message.content.slice(5).trim();
+        message.channel.send(`Serin a mangé ${burgers} burgers 🍔`);
     }
     else if (message.content === prefix + "pong"){
         message.reply("Mais ta gueule !");

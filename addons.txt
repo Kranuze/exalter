@@ -1,1 +1,1 @@
-npm i @iamtraction/google-translate 
+npm i @iamtraction/google-translate

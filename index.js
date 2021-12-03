@@ -1,5 +1,6 @@
 const key = require('./key.json');
 const translate = require('@iamtraction/google-translate');
+const fs = require('fs')
 var Discord = require("discord.js");
 var Client = new Discord.Client({
     intents: [
@@ -34,7 +35,40 @@ Client.on("messageCreate", message => {
 });
 
 
-//test
+//cloud
+Client.on("messageCreate", message => {
+    if (message.author.bot) return;
+    var msgCloud = "null";
+    var usrCloud = message.author.username
+
+    if (message.content.startsWith(prefix + "cloudS")){
+        var msgCloud = message.content.slice(7).trim();
+        fs.writeFile(`./cloud/${usrCloud}.txt`, `${msgCloud}`, (err) => {
+            if(err) {
+                message.reply(err);
+                return
+            }
+            message.reply("Success");
+        });
+    }
+})
+
+Client.on("messageCreate", message => {
+    if (message.author.bot) return;
+    var usrCloud = message.author.username
+
+    if (message.content.startsWith(prefix + "cloudR")){
+        fs.readFile(`./cloud/${usrCloud}.txt`, 'utf-8', (err, data) => {
+            if (err) {
+                console.error(err)
+                return    
+            }
+            message.reply(data)
+        });
+    }
+})
+
+//ggtrad
 Client.on('messageCreate', message => {
     if (message.content.startsWith(prefix + "ggtrad")){
         if (message.author.bot) return;
